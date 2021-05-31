@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
-{% block title %}{% endblock %}
-
+{% block title %}Catégorie:{% endblock %}
 {% block body %}
+    <h1>Toutes les séries par type </h1>
+    {% for program in programs|slice(0,3) %}
+        <div>
+            <h2>{{ program.id }} /{{ program.title }}</h2>
+            <p>{{ program.summary }}</p>
+        </div>
+    {% else %}
+      <p> Aucune série trouvée </p>
+    {% endfor %}
 
-<div class="media">
-  <div class="media-body">
-    <h1 class="mt-0">{{ category.program.title }}</h1>
-    <p>{{ category.program.summary }}</p>
-  </div>
-</div>
-
-<a href="{{ path('category_index') }}">
-    Retour à la liste des categories
-</a>
-
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
 {% endblock %}

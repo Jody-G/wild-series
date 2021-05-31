@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
+use App\Entity\Program;
 
 /**
  * @Route("/categories", name="category_")
@@ -31,22 +32,26 @@ class CategoryController extends AbstractController
     /**
      * Getting a category by id
      *
-     * @Route("/{name}", name="show")
+     * @Route("/{categoryName}", name="show")
      * @return Response
      */
-    public function show(string $name):Response
+    public function show(int $categoryName):Response
     {
-        $category = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findBy(['name' => $name]);
+        $programs = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findBy(
+                ['category' => $categoryName],
+                ['id' => 'DESC']
+            );
 
-        if (!$category) {
+        if (!$programs) {
             throw $this->createNotFoundException(
-                'No categories with name : '.$name.' found in category\'s table.'
+                'No program with id : '.$categoryName.' found in program\'s table.'
             );
         }
+
         return $this->render('category/show.html.twig', [
-            'category' => $category,
+            'programs' => $programs
         ]);
     }
 }
