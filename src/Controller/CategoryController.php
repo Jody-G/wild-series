@@ -35,20 +35,24 @@ class CategoryController extends AbstractController
      * @Route("/{categoryName}", name="show")
      * @return Response
      */
-    public function show(int $categoryName):Response
+    public function show(string $categoryName):Response
     {
-        $programs = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findBy(
-                ['category' => $categoryName],
-                ['id' => 'DESC']
-            );
+        $category = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findOneBy(['name' => $categoryName]);
 
-        if (!$programs) {
+        if (!$categoryName) {
             throw $this->createNotFoundException(
                 'No program with id : '.$categoryName.' found in program\'s table.'
             );
         }
+
+        $programs = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findBy(
+                ['category' => $category],
+                ['id' => 'DESC']
+            );
 
         return $this->render('category/show.html.twig', [
             'programs' => $programs
