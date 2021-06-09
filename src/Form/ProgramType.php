@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Program;
+use App\Entity\Actor;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +20,12 @@ class ProgramType extends AbstractType
             ->add('poster', TextType::class)
             ->add('category', null, ['choice_label' => 'name'])
         ;
+        $builder->add('actors', EntityType::class, [
+            'class' => Actor::class,
+            'choice_label' => 'selector',
+            'multiple' => true,
+            'expanded' => true,
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
