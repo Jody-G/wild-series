@@ -3,10 +3,11 @@
 {% block body %}
     <h1>Série: {{ program.title }}</h1>
     <h2>Saison: {{ season.number }}</h2>
-    <h3>Episode: {{ episode.title }} / {{ episode.number }}</h3>
+    <h3>Episode: {{ episode.number }}</h3>
     <h4>Résumé: {{ episode.synopsis }}</h4>
+    <br>
     
-    <a href="{{ path('app_index') }}">
+    <a href="{{ path('app_index') }}" class="btn btn-primary">
         Retour à l'accueil
     </a>
 {% endblock %}

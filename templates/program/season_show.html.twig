@@ -6,11 +6,15 @@
         <div>
             <h2>{{ episode.id }} / {{ episode.title }} / {{ episode.number }}</h2>
             <p>{{ episode.synopsis }}</p>
-            <a href="{{ path("program_episode_show", { "program": 1, "season": 2, "episode": 3 }) }}">Voir l'épisode</a>
+            <a href="{{ path("program_episode_show", { "program": program.id, "season": season.id, "episode": episode.id }) }}" class="btn btn-primary">Voir l'épisode</a>
         </div>
+        <br>
+    {% else %}
+        <p>Aucun acteur pour cette série</p>
+
     {% endfor %}
 
-    <a href="{{ path('app_index') }}">
+    <a href="{{ path('app_index') }}" class="btn btn-primary">
         Retour à l'accueil
     </a>
 {% endblock %}
